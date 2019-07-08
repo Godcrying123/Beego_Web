@@ -1,0 +1,18 @@
+appname = beeblog
+httpport = 8089
+runmode = dev
+session = true
+
+account = admin
+password = Admin_1234
+
+
+dbhost=127.0.0.1
+dbport=3306
+dbuser=root
+dbpassword=iso*help
+dbname=db_beeblog
+maxIdle=30
+maxConn=30
+
+loglevel=6

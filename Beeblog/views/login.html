@@ -1,0 +1,81 @@
+{{template "header"}}
+<title>Log in</title>
+</head>
+
+<body>
+    <div style="width: 50%;text-align: center; margin:auto auto; margin-top: 10%" class="container">
+        <form method="POST" action="/login" class="form-sign">
+            <h1 class="h3 mb-3 font-weight-normal">Please Register Your Information Here</h1>
+            <div class="input-group mb-4">
+                <span style="width: 30%;" class="input-group-text">UserName</span>
+                <input style="text-align: center;" type="text" class="form-control" name="username" id="usernameid">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Validate</button>
+                </div>
+            </div>
+            <div class="input-group mb-4">
+                <span style="width: 30%;" class="input-group-text">Email</span>
+                <input style="text-align: center;" type="email" class="form-control" name="email" id="emailid">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">Validate</button>
+                </div>
+            </div>
+            <div class="input-group mb-4">
+                <span style="width: 30%;" class="input-group-text">Password</span>
+                <div style="width: 58%;">
+                    <input style="text-align: center;" type="password" name="password" class="form-control" id="passwordid">
+                </div>
+            </div>
+            <div class="input-group mb-4">
+                <span style="width: 30%;" class="input-group-text">Password</span>
+                <div style="width: 58%;">
+                    <input style="text-align: center;" type="password" class="form-control" placeholder="Please Confirm Your Password" id="passwordid1">
+                </div>
+            </div>
+            <div class="checkbox mb-3" style="text-align: left">
+                <label><input type="checkbox" name="autoLogin" >Remember me</label>
+            </div>
+            <div class="input-group mb-4">
+                <span style="width: 30%;" class="input-group-text">Validation Code</span>
+                <div style="width: 30%;">
+                    <input style="text-align: center;" type="password" class="form-control">
+                </div>
+            </div>
+            <div>
+                <input style="width: 45%;" type="submit" class="btn btn-lg btn-outline-primary" onclick="return checkInput()" value="Register" />
+                <input style="width: 45%;" type="button" class="btn btn-lg btn-outline-primary" onclick="javascript:history.back(-1);" value="Back" />
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript">
+        function checkInput() {
+            var uname = document.getElementById("usernameid")
+            if (uname.value.length == 0) {
+                alert("empty username is not allowed")
+                return false
+            }
+            var email = document.getElementById("emailid")
+            if (email.value.length == 0) {
+                alert("empty Email Address is not allowed")
+                return false
+            }
+            var pwd = document.getElementById("passwordid")
+            if (pwd.value.length == 0) {
+                alert("empty password is not allowed")
+                return false
+            }
+            var pwd1 = document.getElementById("passwordid1")
+            if (pwd1.value.length == 0) {
+                alert("Please Verify Your Password")
+                return false
+            } else if (pwd.value != pwd1.value) {
+                alert("Please Input Same Verify Passwords")
+                return false
+            }
+
+            return true
+        }
+    </script>
+</body>
+
+</html>

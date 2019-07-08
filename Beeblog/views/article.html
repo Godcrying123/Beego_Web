@@ -1,0 +1,94 @@
+{{template "header" .}}
+<title>Article - My Blog</title>
+</head>
+
+<body>
+    {{template "navbar" .}}
+    <div style="width: 20%;margin:2.7% 1%;display: inline-block;float:left;">
+        <form method="POST" action="/article">
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active" disabled>
+                          Your Article Lists
+                </button> {{range .articles}}
+                <div class="input-group" style="margin: 3% 0;">
+                    <button style="width: 20%;" class="btn btn-outline-secondary article-select" type="submit">&times</button>
+                    <input class="aid_send" type="hidden" value={{.Id}}>
+                    <button style="width: 80%;" type="button" class="list-group-item list-group-item-action article-list">{{.Title}}</button>
+                </div>
+                {{end}}
+            </div>
+        </form>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $(".article-list", this).click(function() {
+                var aid = $(this).prevAll('.aid_send').val();
+                window.location.href = "/article?aid=" + aid;
+                //document.location = $(this).data("/category?cid" + cid);
+            });
+            $(".article-select", this).click(function() {
+                var aid = $(this).nextAll('.aid_send').val();
+                alert("the aid is" + aid);
+                $(this).attr("value", aid);
+                $(this).attr("name", "selected");
+                alert($(this).attr("value"));
+                alert($(this).attr("name"));
+            });
+        });
+    </script>
+    <div style="width: 75%; display: inline-block;margin: 1% auto;">
+        <form method="POST" action="/article">
+            <div class="form-group">
+                <input type="hidden" name="usernamebtn" value="{{.username}}" />
+                <label for="exampleFormControlSelect1">Category Select</label>
+                <input id="category_monitor" type="hidden" , value="{{.category_id}}" />
+                <select class="form-control" name="categoryname">
+                    {{range .categories}}
+                    <option id="category{{.Id}}" value="{{.Id}}" >{{.Title}}</option>
+                    {{end}}   
+                </select>
+                <small class="form-text text-muted">Please Select One Category From DropList</small>
+            </div>
+            <div class="form-group">
+                <input name="hidden_aid" id="hiddentid" type="hidden" value={{.Hidden_Id}}>
+                <label for="exampleFormControlInput1">Article Title</label>
+                <input name="article_title" class="form-control" placeholder="Please Input Your Article Title Here" value={{.Input_Title}}>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Article Content</label>
+                <textarea name="article_content" class="form-control" placeholder="Please Input Your Article Content Here" rows="10">{{.Input_Content}}</textarea>
+            </div>
+            <div style="text-align:right;">
+                <input name="create" type="submit" class="btn btn-outline-primary" value="Create Article" />
+                <input name="save" type="submit" class="btn btn-outline-primary" value="Save Article" />
+            </div>
+        </form>
+        <hr>
+        <!--
+            <div class="card">
+            <div class="card-header">
+                Comments
+            </div>
+            <div class="form-group" style="margin: 2% 2%; margin-bottom: 0;">
+                <textarea name="article_content" class="form-control" placeholder="Please Leave Your Comments Here" rows="3"></textarea>
+            </div>
+            <div style="text-align:right; margin: 1% 2%;">
+                <input type="submit" class="btn btn-outline-primary" value="Leave a Comment" />
+            </div>
+        </div>
+        -->
+    </div>
+    <script>
+        $(document).ready(function() {
+            var category_name = $("#category_monitor", this).val();
+            //alert("Category Name is" + category_name);
+            if (category_name != "") {
+                //alert("I am here!");
+                $("#category{{.category_id}}").attr("selected", true);
+            }
+        });
+    </script>
+</body>
+
+</html>

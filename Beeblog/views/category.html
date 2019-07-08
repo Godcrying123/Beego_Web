@@ -1,0 +1,87 @@
+{{template "header" .}}
+<title>Category - My Blog</title>
+</head>
+
+<body>
+    {{template "navbar" .}}
+    <div style="width: 97%;margin:1% auto;">
+        <form method="POST" action="/category">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Category</label>
+                <div class="input-group mb-3">
+                    <input type="hidden" id="hiddenid" name="hiddenid" value={{.Hidden_Id}}> {{if .Input_Value}}
+                    <input id="inputcategoryid" type="text" class="form-control" placeholder="Please Input the Category" value={{.Input_Value}} name="inputcategory"> {{else}}
+                    <input type="text" class="form-control" placeholder="Please Input the Category" name="inputcategory"> {{end}}
+                </div>
+            </div>
+            <div>
+                <input type="submit" name="addcate" class="btn btn-primary" value="Add Category" />
+                <input type="submit" name="upcate" id="upcate" class="btn btn-secondary" value="Update Category" />
+            </div>
+        </form>
+    </div>
+    <div style="width: 97%;margin:1% auto;">
+        <table method="POST" action="/category" class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Created</th>
+                    <th scope="col">Views</th>
+                    <th scope="col">Updated</th>
+                    <th scope="col">Operation</th>
+                </tr>
+            </thead>
+            <tbody id="table_click" style="cursor: pointer">
+                {{range .categories}}
+                <tr data-href="">
+                    <th class="cid_send data-redict" scope="row">{{.Id}}</th>
+                    <td class="data-redict">{{.Title}}</td>
+                    <td class="data-redict">{{.Created}}</td>
+                    <td class="data-redict">{{.Views}}</td>
+                    <td class="data-redict">{{.Updated}}</td>
+                    <td>
+                        <button id="deletebtnid" type="button" class="btn btn-primary">Delete</button>
+                    </td>
+                </tr>
+                {{end}}
+            </tbody>
+            <script type="text/javascript">
+                $(document).ready(function() {
+                    $(".data-redict", this).click(function() {
+                        if ($(this).hasClass("cid_send")) {
+                            var cid = $(this).text();
+                        } else {
+                            var cid = $(this).prevAll('.cid_send').text();
+                        }
+                        window.location.href = "/category?cid=" + cid;
+                        //document.location = $(this).data("/category?cid" + cid);
+                    });
+
+                });
+
+                $(document).ready(function() {
+                    $(".btn-primary", this).click(function(event) {
+                        var cid = $(this).parent().prevAll(".cid_send").text();
+                        //alert("My cid is:" + cid);
+                        window.location.href = "/category/delete?cdid=" + cid;
+                    });
+                });
+
+                $(document).ready(function() {
+                    $("#upcate").click(function() {
+                        var updatedid = $("#hiddenid").val();
+                        var inputcategoryid = $("#inputcategoryid").val();
+                        //alert("hidden id" + updatedid);
+                        //alert("inputvalue" + inputcategoryid);
+                        if (updatedid == "" && inputcategoryid != "") {
+                            alert("you can not updated a not exist category")
+                        }
+                    })
+                });
+            </script>
+        </table>
+    </div>
+</body>
+
+</html>
